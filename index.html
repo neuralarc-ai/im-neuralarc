@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sovereign Intelligence Stack · Neural Arc Seed Briefing</title>
+<meta name="description" content="A ten million dollar seed round to own the layer between every intelligent application and every model that runs it.">
+<meta name="theme-color" content="#282828">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="The Sovereign Intelligence Stack · Neural Arc">
+<meta property="og:description" content="A ten million dollar seed round to own the layer between every intelligent application and every model that runs it.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.neuralarc.ai/metaneural.webp">
+<link rel="icon" href="https://www.neuralarc.ai/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fustat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#282828;
+    --ink:#F8F3EC;
+    --ink-2:#B7B0A6;
+    --ink-3:#7E786F;
+    --line:rgba(248,243,236,.14);
+    --line-strong:rgba(248,243,236,.32);
+    --panel:rgba(248,243,236,.03);
+    --grad:linear-gradient(90deg,#FFE459 0%,#2BBF5D 50%,#7B61FF 100%);
+    --pad:clamp(20px,4vw,48px);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Fustat',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    font-weight:300;
+    font-size:clamp(15.5px,1.6vw,18px);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  ::selection{background:#FFE459;color:#282828}
+  a{color:var(--ink);text-decoration:none}
+
+  .edge{position:fixed;top:0;left:0;right:0;height:3px;background:var(--grad);z-index:40}
+
+  /* ---------- floating logo + nav, aligned to the content column ---------- */
+  .logo-rail{position:fixed;top:clamp(18px,3vh,30px);left:0;right:0;z-index:30;pointer-events:none}
+  .nav-rail{position:fixed;bottom:clamp(14px,2.6vh,24px);left:0;right:0;z-index:30;pointer-events:none}
+  .rail-in{max-width:1060px;margin:0 auto;padding:0 var(--pad)}
+  .page-logo{display:inline-block;pointer-events:auto}
+  .page-logo img{height:30px;width:auto;display:block;filter:brightness(0) invert(1)}
+  .page-logo span{font-weight:800;font-size:22px;color:var(--ink)}
+  .nav-rail-in{display:flex;align-items:center;justify-content:flex-end;gap:14px}
+  .nav-rail-in .counter,.nav-rail-in .navbtn{pointer-events:auto}
+  .counter{font-size:11px;letter-spacing:.24em;color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .navbtn{width:36px;height:36px;border:1px solid var(--line-strong);background:rgba(40,40,40,.72);color:var(--ink);
+    font-size:15px;cursor:pointer;font-family:inherit;transition:background .25s,color .25s;line-height:1}
+  .navbtn:hover{background:var(--ink);color:#282828}
+  .navbtn:disabled{opacity:.25;cursor:default}
+  .navbtn:disabled:hover{background:rgba(40,40,40,.72);color:var(--ink)}
+
+  /* ---------- deck ---------- */
+  .deck{position:fixed;top:3px;bottom:0;left:0;right:0}
+  .slide{position:absolute;inset:0;display:flex;overflow-y:auto;overflow-x:hidden;
+    opacity:0;visibility:hidden;transform:translateY(14px);
+    transition:opacity .55s ease,transform .55s ease,visibility 0s linear .55s}
+  .slide.active{opacity:1;visibility:visible;transform:none;
+    transition:opacity .55s ease,transform .55s ease}
+  .inner{margin:auto;width:100%;max-width:1060px;padding:clamp(64px,9vh,88px) var(--pad) clamp(56px,8vh,76px)}
+
+  /* staggered reveal inside active slide */
+  .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;transition-delay:calc(var(--i,0)*90ms + 150ms)}
+  .slide.active .rv{opacity:1;transform:none}
+
+  /* ---------- shared type ---------- */
+  .slabel{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);font-weight:500;
+    padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:clamp(16px,3vh,30px)}
+  .slabel .note{letter-spacing:.14em;text-align:right}
+  h1{font-size:clamp(42px,8.6vw,102px);font-weight:800;line-height:1.0;letter-spacing:-.025em;margin:clamp(16px,3vh,26px) 0}
+  h2{font-size:clamp(29px,4.8vw,56px);font-weight:700;line-height:1.1;letter-spacing:-.018em;margin-bottom:clamp(14px,2.8vh,26px);max-width:22ch}
+  .eyebrow{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+  p.lead{max-width:62ch;color:var(--ink-2)}
+  p.lead strong{color:var(--ink);font-weight:600}
+  .caption{font-size:13.5px;color:var(--ink-3);margin-top:18px;max-width:70ch;line-height:1.65}
+
+  /* ---------- S1 title ---------- */
+  .title-slide .sub{font-size:clamp(17px,2.4vw,23px);font-weight:400;color:var(--ink);max-width:38ch;line-height:1.55;margin-top:6px}
+  .hint{margin-top:clamp(26px,5vh,44px);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+  .hint b{font-weight:600;color:var(--ink-2);letter-spacing:.1em}
+
+  /* ---------- S2 problem ---------- */
+  .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(20px,3.6vh,32px)}
+  .prob{border:1px solid var(--line);background:var(--panel);padding:clamp(18px,3vh,28px) 20px}
+  .prob .pl{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:10px}
+  .prob .pt{display:block;font-size:clamp(16px,2vw,20px);font-weight:600;line-height:1.4}
+
+  /* ---------- schematic ---------- */
+  .fig{border:1px solid var(--line);background:var(--panel);margin-top:clamp(16px,3vh,26px)}
+  .fig-head{display:flex;justify-content:space-between;gap:16px;padding:12px 20px;border-bottom:1px solid var(--line);
+    font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+  .fig-body{padding:clamp(14px,2.6vh,26px) 18px}
+  .fig-foot{padding:11px 20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);line-height:1.55}
+  .route{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .rnode{border:1px solid var(--line-strong);padding:9px 22px;max-width:440px;width:100%}
+  .rnode .nl{display:block;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:600}
+  .rnode .ns{display:block;font-size:12.5px;color:var(--ink-3);margin-top:3px;line-height:1.5}
+  .arrow{font-size:16px;color:var(--ink-2);line-height:1;padding:6px 0}
+  .parts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}
+  .part{border:1px solid var(--line);padding:11px 12px 13px;background:var(--bg)}
+  .part .pl{display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+  .part .arrow{padding:6px 0;display:block}
+  .part .pm{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:3px}
+  .part .pd{display:block;font-size:12.5px;color:var(--ink-3);line-height:1.45}
+  .pulse-1,.pulse-2,.pulse-3{animation:pulse 2.4s ease-in-out infinite}
+  .pulse-2{animation-delay:.8s}
+  .pulse-3{animation-delay:1.6s}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+  /* ---------- stat strips ---------- */
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:clamp(20px,3.6vh,32px)}
+  .cell{padding:clamp(18px,3vh,28px) 20px;border-left:1px solid var(--line)}
+  .cell:first-child{border-left:none}
+  .cell b{display:block;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.015em;line-height:1.05;margin-bottom:8px}
+  .cell span{font-size:13px;color:var(--ink-3);line-height:1.5;display:block}
+
+  /* traction big grid */
+  .big-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(20px,3.6vh,32px)}
+  .big{border:1px solid var(--line);background:var(--panel);padding:clamp(22px,4vh,36px) clamp(20px,3vw,30px)}
+  .big b{display:block;font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-.025em;line-height:1;margin-bottom:10px}
+  .big span{font-size:clamp(13px,1.5vw,15px);color:var(--ink-3);line-height:1.55;display:block;max-width:26ch}
+
+  /* ---------- layers ---------- */
+  .layers{margin-top:clamp(14px,2.6vh,22px);border-top:1px solid var(--line)}
+  .layer{display:grid;grid-template-columns:160px 140px 1fr 105px;gap:clamp(12px,2vw,20px);align-items:baseline;
+    padding:clamp(13px,2.4vh,19px) 4px;border-bottom:1px solid var(--line)}
+  .layer .ln{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:500;line-height:1.7;white-space:nowrap}
+  .layer .lp{font-size:clamp(16px,2vw,20px);font-weight:700;letter-spacing:-.01em}
+  .layer .ld{font-size:14px;color:var(--ink-2);line-height:1.6}
+  .layer .ls{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);text-align:right;font-weight:500;line-height:1.7}
+  .layer.hot{position:relative;background:var(--panel)}
+  .layer.hot::before{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;background:var(--grad)}
+  .layer.hot .ls{color:var(--ink)}
+
+  /* ---------- founders ---------- */
+  .founders{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(18px,3.4vh,30px)}
+  .founder{border:1px solid var(--line);background:var(--panel);padding:clamp(22px,3.6vh,32px) clamp(20px,3vw,28px)}
+  .f-photo{width:clamp(64px,7vw,84px);height:clamp(64px,7vw,84px);object-fit:cover;filter:grayscale(1);display:block;margin-bottom:16px;border:1px solid var(--line-strong)}
+  .f-name{display:block;font-size:clamp(18px,2.2vw,22px);font-weight:700;letter-spacing:-.01em}
+  .f-role{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin:6px 0 14px}
+  .f-bio{font-size:clamp(13.5px,1.6vw,15px);color:var(--ink-2);line-height:1.7;max-width:none}
+  .f-bio strong{color:var(--ink);font-weight:600}
+
+  /* ---------- contrast ---------- */
+  .contrast{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);margin-top:clamp(16px,3vh,26px)}
+  .con-col{padding:clamp(20px,3.6vh,32px) clamp(18px,3vw,30px)}
+  .con-col+.con-col{border-left:1px solid var(--line)}
+  .con-col h3{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+  .con-col.rented h3{color:var(--ink-3)}
+  .con-item{padding:12px 0;border-top:1px solid var(--line);font-size:clamp(15px,1.8vw,17px);font-weight:500;line-height:1.5}
+  .con-col.rented .con-item{color:var(--ink-3);font-weight:400}
+
+  /* ---------- ask ---------- */
+  .ask-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(18px,3.4vh,30px)}
+  .ask-box{border:1px solid var(--line-strong);background:var(--panel);padding:clamp(22px,4vh,36px) clamp(20px,3vw,32px);position:relative}
+  .ask-box.hot::before{content:"";position:absolute;left:-1px;top:-1px;right:-1px;height:3px;background:var(--grad)}
+  .ask-box .al{display:block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:12px}
+  .ask-box .av{display:block;font-size:clamp(30px,4.8vw,54px);font-weight:800;letter-spacing:-.025em;line-height:1}
+  .ask-box .as{display:block;font-size:13px;color:var(--ink-3);margin-top:10px;line-height:1.55}
+  .terms{margin-top:14px;border-top:1px solid var(--line)}
+  .term{display:grid;grid-template-columns:200px 1fr;gap:clamp(10px,2vw,20px);padding:clamp(11px,2vh,15px) 4px;border-bottom:1px solid var(--line);align-items:baseline}
+  .term .tk{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);font-weight:500;line-height:1.9}
+  .term .tv{font-size:clamp(15px,1.8vw,17.5px);font-weight:500}
+
+  /* ---------- return charts ---------- */
+  .ret-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(18px,3vw,34px);margin-top:clamp(16px,3vh,26px);align-items:stretch}
+  .chart-frame{border:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column}
+  .chart-frame .fig-body{flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+  .cols{display:flex;align-items:flex-end;gap:clamp(8px,1.6vw,18px);height:clamp(150px,24vh,230px)}
+  .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+  .col .cv{font-size:clamp(10px,1.1vw,12px);font-weight:600;color:var(--ink-2);margin-bottom:7px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .col .cb{width:100%;background:var(--ink);opacity:.26}
+  .col:last-child .cb{opacity:1;background:linear-gradient(180deg,#FFE459 0%,#2BBF5D 50%,#7B61FF 100%)}
+  .col:last-child .cv{color:var(--ink)}
+  .col .cy{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-top:9px;font-weight:500}
+  .bar-row{padding:11px 0 3px}
+  .bar-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:7px}
+  .bar-top .bl{font-size:12.5px;letter-spacing:.03em;color:var(--ink-2)}
+  .bar-top .bv{font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .bar-track{height:7px;position:relative}
+  .bar-fill{position:absolute;inset:0 auto 0 0;background:var(--ink);opacity:.26}
+  .bar-row.lead .bar-fill{opacity:1;background:var(--grad)}
+  .mult{font-size:clamp(34px,4.6vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1;padding:4px 0 12px}
+  .fineprint{font-size:10.5px;color:var(--ink-3);line-height:1.6;margin-top:14px;max-width:100%}
+
+  /* ---------- close ---------- */
+  .close-slide h2{font-size:clamp(36px,6.8vw,72px);font-weight:800;line-height:1.02;letter-spacing:-.02em;max-width:14ch}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,34px);margin-top:clamp(28px,5vh,48px);padding-top:clamp(20px,3.4vh,30px);border-top:1px solid var(--line)}
+  .cg .cl{display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:8px}
+  .cg a,.cg span{display:block;font-size:clamp(14px,1.7vw,15.5px);font-weight:500;line-height:1.85;color:var(--ink)}
+  .cg a:hover{color:#FFE459}
+  .conf{margin-top:clamp(22px,4vh,36px);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:2}
+
+  /* competitive field */
+  .field-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:clamp(10px,2vh,20px)}
+  @media (min-width:980px){
+    .field-grid{grid-template-columns:.9fr 1.1fr;gap:clamp(16px,2vw,28px)}
+    .field-grid .fig{margin-top:0;height:100%;display:flex;flex-direction:column}
+    .field-grid .fig-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+  }
+  .field-grid .fig{margin-top:0}
+  .bar-track.tall{height:20px;border:1px solid var(--line)}
+  .bar-band{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#2BBF5D,#7B61FF);opacity:.35}
+  .savedline{font-size:13px;color:var(--ink-2);margin-top:12px;line-height:1.5}
+  .savedline b{color:var(--ink);font-weight:600}
+  .matrix{width:100%;border-collapse:collapse}
+  .matrix th{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:0 6px 10px;text-align:center}
+  .matrix th:first-child{text-align:left}
+  .matrix th.mbh{color:var(--ink);background:var(--panel)}
+  .matrix td{border-top:1px solid var(--line);padding:8px 6px;text-align:center;font-size:15.5px;color:var(--ink-3)}
+  .matrix td.cap{text-align:left;font-size:13px;color:var(--ink-2);line-height:1.4;padding-right:10px}
+  .matrix td.mb{color:var(--ink);background:var(--panel);font-weight:600}
+
+  .duo{display:grid;grid-template-columns:1fr}
+  @media (min-width:980px){
+    .duo{grid-template-columns:.95fr 1.05fr;gap:clamp(24px,3.5vw,48px);align-items:center}
+    .duo .fig{margin-top:0}
+  }
+  @media (max-height:780px){
+    .inner{padding-top:56px;padding-bottom:48px}
+    .slabel{margin-bottom:14px;padding-bottom:10px}
+    h2{margin-bottom:12px;font-size:clamp(24px,3.6vw,40px)}
+    .fig-head{padding:9px 16px}
+    .fig-body{padding:12px 14px}
+    .matrix td{padding:6px 5px}
+    .matrix th{padding:0 5px 7px}
+    .matrix td.cap{line-height:1.3}
+    .founder{padding:16px 18px}
+    .f-photo{width:56px;height:56px;margin-bottom:10px}
+    .savedline{margin-top:6px;font-size:11px}
+    .fig-foot{padding:8px 16px;font-size:11px}
+    .caption{margin-top:12px}
+    .big{padding:16px 18px}
+    .big b{font-size:clamp(28px,4.6vw,44px)}
+    .ask-box{padding:18px 20px}
+    .ask-box .av{font-size:clamp(26px,4vw,40px)}
+    .term{padding:9px 4px}
+    .strip .cell{padding:16px 18px}
+    .cols{height:clamp(120px,20vh,170px)}
+    .rnode .ns{font-size:10.5px}
+    .part{padding:9px 10px 11px}
+    .arrow{padding:4px 0}
+    .matrix td{padding:7px 6px}
+    .savedline{margin-top:8px}
+    .bar-track.tall{height:16px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .slide,.rv{transition:none}
+    .pulse-1,.pulse-2,.pulse-3{animation:none}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .layer{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;row-gap:5px}
+    .layer .ln{order:1}
+    .layer .ls{order:2}
+    .layer .lp{order:3}
+    .layer .ld{order:4;grid-column:1 / -1}
+    .ret-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:760px){
+    .top-tag{display:none}
+    .prob-grid{grid-template-columns:1fr;gap:10px}
+    .strip{grid-template-columns:1fr 1fr}
+    .cell:nth-child(odd){border-left:none}
+    .cell:nth-child(n+3){border-top:1px solid var(--line)}
+    .big-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .contrast{grid-template-columns:1fr}
+    .con-col+.con-col{border-left:none;border-top:1px solid var(--line)}
+    .ask-pair{grid-template-columns:1fr;gap:10px}
+    .term{grid-template-columns:1fr;gap:1px}
+    .contact-grid{grid-template-columns:1fr;gap:16px}
+    .slabel .note{display:none}
+    .inner{padding-top:58px;padding-bottom:46px}
+    .big{padding:16px 14px}
+    .big b{font-size:clamp(26px,7.4vw,40px)}
+    .big-grid{gap:8px}
+    .caption{margin-top:10px}
+    .ask-box{padding:16px 16px 18px}
+    .ask-box .av{font-size:clamp(26px,8vw,40px)}
+    .ask-pair{gap:8px}
+    .term{padding:8px 4px}
+    .layer{padding:11px 4px}
+    .con-item{padding:9px 0;font-size:14px}
+    .con-col{padding:18px 16px 20px}
+    .founders{grid-template-columns:1fr;gap:10px}
+    .founder{padding:18px 16px}
+    .f-photo{margin-bottom:12px}
+    .prob{padding:15px 16px}
+    .cols{height:135px}
+    .fig-body{padding:14px 14px}
+    .part .pd{font-size:11px}
+    .matrix th{font-size:8px;padding:0 3px 8px}
+    .matrix td{padding:8px 3px;font-size:13px}
+    .matrix td.cap{font-size:11px;padding-right:6px}
+  }
+  @media (max-width:560px){
+    .parts{grid-template-columns:1fr;gap:9px}
+    .col .cv{font-size:9px}
+    .fig-head{padding:9px 14px}
+    .rnode{padding:8px 14px}
+    .part{padding:8px 10px 10px}
+    .part .arrow{padding:3px 0}
+    .arrow{padding:4px 0}
+    .terms{margin-top:10px}
+    .fig-foot{padding:9px 14px;font-size:11px}
+  }
+  @media (max-height:620px){
+    .inner{padding-top:20px;padding-bottom:20px}
+    h2{margin-bottom:14px}
+    .slabel{margin-bottom:16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="edge"></div>
+
+<div class="logo-rail">
+  <div class="rail-in">
+    <a class="page-logo" href="https://www.neuralarc.ai" target="_blank" rel="noopener" aria-label="NeuralArc">
+      <img src="https://www.neuralarc.ai/neuralarc-logo.svg" alt="NeuralArc"
+           onerror="this.outerHTML='&lt;span&gt;NeuralArc&lt;/span&gt;'">
+    </a>
+  </div>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- 01 · TITLE -->
+  <section class="slide title-slide" aria-label="Title">
+    <div class="inner">
+      <span class="eyebrow rv">Neural Arc Inc. · Seed Round · USD 10,000,000</span>
+      <h1 class="rv">The Sovereign<br>Intelligence Stack</h1>
+      <p class="sub rv">A ten million dollar seed round to own the layer between every intelligent application and every model that runs it.</p>
+      <p class="hint rv"><b>← →</b>&nbsp; arrow keys, or swipe</p>
+    </div>
+  </section>
+
+  <!-- 02 · PROBLEM -->
+  <section class="slide" aria-label="The problem">
+    <div class="inner">
+      <div class="slabel rv"><span>I &nbsp;·&nbsp; The Problem</span><span class="note">The rented default</span></div>
+      <h2 class="rv">The application is yours. The intelligence is rented.</h2>
+      <p class="lead rv">Software is being rebuilt with intelligence inside it, yet the computation underneath belongs to a handful of frontier laboratories. Every product built this way inherits three things it never chose.</p>
+      <div class="prob-grid">
+        <div class="prob rv"><span class="pl">Pricing</span><span class="pt">Somebody else sets it, and changes it without negotiation.</span></div>
+        <div class="prob rv"><span class="pl">Deprecation</span><span class="pt">A retired model becomes an unplanned engineering quarter.</span></div>
+        <div class="prob rv"><span class="pl">Data boundary</span><span class="pt">Regulated workloads cannot cross it. Yours do, daily.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · MODELBEAT -->
+  <section class="slide" aria-label="ModelBeat, the engine">
+    <div class="inner">
+      <div class="slabel rv"><span>II &nbsp;·&nbsp; The Engine &nbsp;·&nbsp; ModelBeat</span><span class="note">modelbeat.ai · Live</span></div>
+      <div class="duo">
+        <div class="duo-l">
+          <h2 class="rv">Own the engine, not the invoice.</h2>
+          <p class="lead rv"><strong>ModelBeat is orchestration intelligence, not a marketplace.</strong> It reads a request, splits it, routes each part to the model that answers it best, and returns one answer with context retained.</p>
+        </div>
+        <figure class="fig rv">
+        <figcaption class="fig-head"><span>Fig. 1</span><span>One request, many models, one answer</span></figcaption>
+        <div class="fig-body">
+          <div class="route">
+            <div class="rnode"><span class="nl">Request</span><span class="ns">Read, understood, decomposed</span></div>
+            <div class="arrow pulse-1">↓</div>
+            <div class="parts">
+              <div class="part"><span class="pl">Part A</span><span class="arrow pulse-1">↓</span><span class="pm">Open Weight</span><span class="pd">Handpicked by Elytra</span></div>
+              <div class="part"><span class="pl">Part B</span><span class="arrow pulse-2">↓</span><span class="pm">Your Own Model</span><span class="pd">Brought in, or built inside</span></div>
+              <div class="part"><span class="pl">Part C</span><span class="arrow pulse-3">↓</span><span class="pm">Frontier, Gated</span><span class="pd">Only when nothing else clears the bar</span></div>
+            </div>
+            <div class="arrow pulse-2">↓</div>
+            <div class="rnode"><span class="nl">One Answer</span><span class="ns">Context retained · every token, route, and cost logged</span></div>
+          </div>
+        </div>
+        <div class="fig-foot">On premises, your own cloud, hybrid, or managed: nothing leaves the perimeter.</div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · MOAT -->
+  <section class="slide" aria-label="The moat">
+    <div class="inner">
+      <div class="slabel rv"><span>III &nbsp;·&nbsp; The Moat &nbsp;·&nbsp; Elytra</span><span class="note">Published research</span></div>
+      <h2 class="rv">Benchmark the world, then own the cluster.</h2>
+      <p class="lead rv"><strong>Elytra</strong>, our own evaluation protocol, benchmarks open-weight models continuously on quality, latency, and cost, and handpicks the cluster. Customers bring or build their own domain models alongside it. The method is set out in our own research: a position paper and a technical report.</p>
+      <div class="strip">
+        <div class="cell rv"><b>37 to 43%</b><span>lower token cost, measured in internal testing</span></div>
+        <div class="cell rv"><b>450+</b><span>models orchestrated across the routed field</span></div>
+        <div class="cell rv"><b>One key</b><span>serves every application in the business</span></div>
+        <div class="cell rv"><b>Every token</b><span>traced to a person, a task, and a route</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · FIELD -->
+  <section class="slide" aria-label="Competitive position">
+    <div class="inner">
+      <div class="slabel rv"><span>IV &nbsp;·&nbsp; The Field</span><span class="note">Competitive position</span></div>
+      <h2 class="rv">Measured against the field.</h2>
+      <div class="field-grid">
+        <figure class="fig rv">
+          <figcaption class="fig-head"><span>Fig. 2</span><span>Cost per identical workload, indexed</span></figcaption>
+          <div class="fig-body">
+            <div class="bar-row">
+              <div class="bar-top"><span class="bl">A single frontier contract</span><span class="bv">100</span></div>
+              <div class="bar-track tall"><div class="bar-fill" style="width:100%"></div></div>
+            </div>
+            <div class="bar-row lead">
+              <div class="bar-top"><span class="bl">ModelBeat, routed</span><span class="bv">57 to 63</span></div>
+              <div class="bar-track tall"><div class="bar-fill" style="width:57%"></div><div class="bar-band" style="left:57%;width:6%"></div></div>
+            </div>
+            <p class="savedline">Saving of <b>37 to 43 percent</b>, measured in internal testing.</p>
+          </div>
+          <div class="fig-foot">Indexed to a single frontier contract at 100. The routed figure reflects the cheapest model that clears the quality bar on every call.</div>
+        </figure>
+        <figure class="fig rv">
+          <figcaption class="fig-head"><span>Fig. 3</span><span>Orchestration against the field</span></figcaption>
+          <div class="fig-body">
+            <table class="matrix">
+              <thead>
+                <tr><th></th><th class="mbh">ModelBeat</th><th>Routers</th><th>Marketplaces</th><th>Frontier direct</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="cap">Many models behind one key</td><td class="mb">●</td><td>●</td><td>●</td><td>○</td></tr>
+                <tr><td class="cap">One request, decomposed and routed</td><td class="mb">●</td><td>◑</td><td>○</td><td>○</td></tr>
+                <tr><td class="cap">Context retained across models</td><td class="mb">●</td><td>○</td><td>○</td><td>○</td></tr>
+                <tr><td class="cap">Own benchmark protocol, refreshed</td><td class="mb">●</td><td>◑</td><td>○</td><td>○</td></tr>
+                <tr><td class="cap">Bring or build your own models</td><td class="mb">●</td><td>○</td><td>○</td><td>◑</td></tr>
+                <tr><td class="cap">On premises, per-token audit</td><td class="mb">●</td><td>○</td><td>○</td><td>○</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="fig-foot">● Full &nbsp;·&nbsp; ◑ Partial &nbsp;·&nbsp; ○ Absent &nbsp;·&nbsp; Category-level view of the field.</div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · STACK -->
+  <section class="slide" aria-label="The stack">
+    <div class="inner">
+      <div class="slabel rv"><span>V &nbsp;·&nbsp; The Stack</span><span class="note">Inside your perimeter</span></div>
+      <h2 class="rv">One perimeter, four layers.</h2>
+      <div class="layers rv">
+        <div class="layer">
+          <span class="ln">04 · The Surface</span><span class="lp">Argus</span>
+          <span class="ld">Speak, and work happens. Voice and agents that see the screen and act on it.</span>
+          <span class="ls">Sept 2026</span>
+        </div>
+        <div class="layer">
+          <span class="ln">03 · The Workspace</span><span class="lp">Helium AI</span>
+          <span class="ld">Where the team works. Shared memory, permissions, and a view of every prompt and cost.</span>
+          <span class="ls">Live</span>
+        </div>
+        <div class="layer">
+          <span class="ln">02 · The Knowledge</span><span class="lp">Tensaris</span>
+          <span class="ld">Your own data, made answerable. Every reply grounded in what the company knows.</span>
+          <span class="ls">Live</span>
+        </div>
+        <div class="layer hot">
+          <span class="ln">01 · The Engine</span><span class="lp">ModelBeat</span>
+          <span class="ld">Reads the request, routes each part, returns one answer. Every other layer stands on it.</span>
+          <span class="ls">Live · Core</span>
+        </div>
+      </div>
+      <p class="caption rv">The workspace wins the user. The engine wins the infrastructure. A model can retire without the layer above it noticing.</p>
+    </div>
+  </section>
+
+  <!-- 06 · TRACTION -->
+  <section class="slide" aria-label="Traction">
+    <div class="inner">
+      <div class="slabel rv"><span>VI &nbsp;·&nbsp; Traction</span><span class="note">Since the mid-May 2026 launch</span></div>
+      <h2 class="rv">Already live. Already selling.</h2>
+      <div class="big-grid">
+        <div class="big rv"><b>80,000+</b><span>users since the mid-May 2026 launch</span></div>
+        <div class="big rv"><b>$2M</b><span>ARR contracted, revenue from October 2026</span></div>
+        <div class="big rv"><b>$11M</b><span>active sales pipeline</span></div>
+        <div class="big rv"><b>$30M</b><span>further pipeline in late-stage NDA discussion</span></div>
+      </div>
+      <p class="caption rv">Late-stage NDA discussions with a Big Four firm, a large mining group, and a European bank sit outside the active pipeline figure.</p>
+    </div>
+  </section>
+
+  <!-- 07 · CHOICE -->
+  <section class="slide" aria-label="The choice">
+    <div class="inner">
+      <div class="slabel rv"><span>VII &nbsp;·&nbsp; The Choice</span><span class="note">Rented, or owned</span></div>
+      <h2 class="rv">Retire the single-model default.</h2>
+      <div class="contrast rv">
+        <div class="con-col">
+          <h3>With the Neural Arc stack</h3>
+          <div class="con-item">One request, many models, one answer.</div>
+          <div class="con-item">Thirty-seven to forty-three percent lower token cost.</div>
+          <div class="con-item">Sovereign by architecture. Nothing leaves.</div>
+          <div class="con-item">Every decision auditable, to the token.</div>
+        </div>
+        <div class="con-col rented">
+          <h3>The frontier default</h3>
+          <div class="con-item">One vendor sets the terms.</div>
+          <div class="con-item">Spend that nobody can attribute.</div>
+          <div class="con-item">Data crosses a boundary you do not control.</div>
+          <div class="con-item">A retired model becomes an unplanned quarter.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · FOUNDERS -->
+  <section class="slide" aria-label="The founders">
+    <div class="inner">
+      <div class="slabel rv"><span>VIII &nbsp;·&nbsp; The Founders</span><span class="note">Newark, Delaware · Pune, India</span></div>
+      <h2 class="rv">Founders who have done this before.</h2>
+      <div class="founders">
+        <div class="founder rv">
+          <img class="f-photo" src="https://www.neuralarc.ai/at.webp" alt="Aniket Tapre" onerror="this.style.display='none'">
+          <span class="f-name">Aniket Tapre</span>
+          <span class="f-role">Founder and CEO</span>
+          <p class="f-bio">A serial entrepreneur with <strong>five exits</strong> across different domains and a proven record of building and selling technology companies. A product and technology founder who conceived the sovereign AI thesis early and now leads a team of thirty-five across the US, the UK, and India.</p>
+        </div>
+        <div class="founder rv">
+          <img class="f-photo" src="https://www.neuralarc.ai/sp.webp" alt="Sheetal Patole" onerror="this.style.display='none'">
+          <span class="f-name">Sheetal Patole</span>
+          <span class="f-role">Co-Founder</span>
+          <p class="f-bio">A career at the top of the very enterprises Neural Arc sells to, with senior roles at <strong>Barclays, Rio Tinto, PwC, Macquarie Bank, and Deloitte</strong>. She knows exactly how large regulated organizations evaluate, buy, and govern technology, because she has run it from the inside.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 · THE ASK -->
+  <section class="slide" aria-label="The round and the ask">
+    <div class="inner">
+      <div class="slabel rv"><span>IX &nbsp;·&nbsp; The Round</span><span class="note">Seed · 2026</span></div>
+      <h2 class="rv">Fund the layer, not the rent.</h2>
+      <div class="ask-pair">
+        <div class="ask-box hot rv"><span class="al">Total Raise</span><span class="av">$10,000,000</span><span class="as">Seed, at approximately USD 100,000,000 post-money</span></div>
+        <div class="ask-box rv"><span class="al">Minimum Ticket</span><span class="av">$300,000</span><span class="as">Per investor, USD</span></div>
+      </div>
+      <div class="terms rv">
+        <div class="term"><span class="tk">Equity released</span><span class="tv">No more than ten percent</span></div>
+        <div class="term"><span class="tk">Target return</span><span class="tv">Eighteen to nineteen percent annualised</span></div>
+        <div class="term"><span class="tk">Liquidity</span><span class="tv">Option to exit at the Series A</span></div>
+        <div class="term"><span class="tk">Team</span><span class="tv">Thirty-five people across Delaware and Pune</span></div>
+      </div>
+      <p class="caption rv" style="font-size:11px">Target return is a management target, not a guarantee. Private investments carry risk, including the loss of capital.</p>
+    </div>
+  </section>
+
+  <!-- 10 · CLOSE -->
+  <section class="slide close-slide" aria-label="Close and contact">
+    <div class="inner">
+      <h2 class="rv">Rent intelligence, or direct it.</h2>
+      <p class="lead rv" style="margin-top:14px">The application layer is crowded. The layer underneath it is not.</p>
+      <div class="contact-grid">
+        <div class="cg rv">
+          <span class="cl">Products</span>
+          <a href="https://www.modelbeat.ai" target="_blank" rel="noopener">modelbeat.ai</a>
+          <a href="https://he2.ai" target="_blank" rel="noopener">he2.ai</a>
+        </div>
+        <div class="cg rv">
+          <span class="cl">Company</span>
+          <span>Neural Arc Inc.</span>
+          <a href="https://www.neuralarc.ai" target="_blank" rel="noopener">neuralarc.ai</a>
+        </div>
+        <div class="cg rv">
+          <span class="cl">Contact</span>
+          <a href="mailto:aniket@neuralarc.ai">aniket@neuralarc.ai</a>
+          <span>Aniket Tapre · Founder and CEO</span>
+        </div>
+      </div>
+      <p class="conf rv">Newark, Delaware · Pune, India &nbsp;·&nbsp; Confidential · Prepared for prospective investors · 2026</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="nav-rail">
+  <div class="rail-in nav-rail-in">
+    <span class="counter" id="counter">01 · 10</span>
+    <button class="navbtn" id="prev" aria-label="Previous slide">←</button>
+    <button class="navbtn" id="next" aria-label="Next slide">→</button>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var total = slides.length;
+    var counter = document.getElementById('counter');
+    var prevBtn = document.getElementById('prev');
+    var nextBtn = document.getElementById('next');
+    var current = 0;
+
+    // stagger indices for reveals
+    slides.forEach(function(s){
+      Array.prototype.slice.call(s.querySelectorAll('.rv')).forEach(function(el,i){
+        el.style.setProperty('--i', i);
+      });
+    });
+
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+    function go(i){
+      if (i < 0 || i >= total) return;
+      slides[current].classList.remove('active');
+      slides[current].setAttribute('aria-hidden','true');
+      current = i;
+      var s = slides[current];
+      s.classList.add('active');
+      s.removeAttribute('aria-hidden');
+      s.scrollTop = 0;
+      counter.textContent = pad(current+1) + ' · ' + pad(total);
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === total - 1;
+      if (history.replaceState) history.replaceState(null, '', '#' + (current+1));
+    }
+    function next(){ go(current + 1); }
+    function prev(){ go(current - 1); }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    document.addEventListener('keydown', function(e){
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      switch(e.key){
+        case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': e.preventDefault(); next(); break;
+        case 'ArrowLeft': case 'ArrowUp': case 'PageUp': e.preventDefault(); prev(); break;
+        case 'Home': e.preventDefault(); go(0); break;
+        case 'End': e.preventDefault(); go(total-1); break;
+      }
+    });
+
+    // touch swipe
+    var tx = null, ty = null;
+    document.addEventListener('touchstart', function(e){
+      tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+    }, {passive:true});
+    document.addEventListener('touchend', function(e){
+      if (tx === null) return;
+      var dx = e.changedTouches[0].clientX - tx;
+      var dy = e.changedTouches[0].clientY - ty;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4){
+        if (dx < 0) next(); else prev();
+      }
+      tx = ty = null;
+    }, {passive:true});
+
+    // init from hash
+    var h = parseInt((location.hash || '').replace('#',''), 10);
+    var start = (!isNaN(h) && h >= 1 && h <= total) ? h - 1 : 0;
+    slides.forEach(function(s,i){ if (i !== start) s.setAttribute('aria-hidden','true'); });
+    slides[start].classList.add('active');
+    current = start;
+    counter.textContent = pad(current+1) + ' · ' + pad(total);
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+
+    window.deckGo = go;
+  })();
+</script>
+
+</body>
+</html>
